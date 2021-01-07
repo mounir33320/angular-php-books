@@ -1,0 +1,7 @@
+frontend/.idea
+frontend/e2e
+frontend/.gitignore
+frontend/node_modules
+frontend/package-lock.json
+frontend/README
+
