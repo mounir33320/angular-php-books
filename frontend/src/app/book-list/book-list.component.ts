@@ -14,16 +14,25 @@ export class BookListComponent implements OnInit, OnDestroy {
   public books: Book[];
   private bookSubscription: Subscription;
 
-  constructor(private bookService: BookService, private router: Router) { }
+  public loader: boolean;
+  public loaderSubscription: Subscription;
+
+  constructor(public bookService: BookService, private router: Router) {}
 
   ngOnInit(): void {
-
     this.bookSubscription = this.bookService.bookSubject.subscribe(
       (books: Book[]) => {
         this.books = books;
         }
       );
     this.bookService.emitBooks();
+
+    this.loaderSubscription = this.bookService.loaderSubject.subscribe(
+      (loader: boolean) => {
+        this.loader = loader;
+      }
+    );
+    this.bookService.emitLoader();
   }
 
   public onViewBook(id: number) {
@@ -42,5 +51,6 @@ export class BookListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.bookSubscription.unsubscribe();
+    this.loaderSubscription.unsubscribe();
   }
 }

@@ -10,7 +10,8 @@ import { Book } from '../models/Book.model';
 })
 export class SingleBookComponent implements OnInit {
 
-  book: Book;
+  public book: Book;
+  public loader: boolean = true;
 
   constructor(private bookService: BookService, private route: ActivatedRoute) { }
 
@@ -20,7 +21,8 @@ export class SingleBookComponent implements OnInit {
 
     this.bookService.getSingleBook(id).subscribe(
       (book: Book) => this.book = book,
-      (error) => console.log(error)
+      (error) => console.log(error),
+      () => this.loader = false
     );
   }
 

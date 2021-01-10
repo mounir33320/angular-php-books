@@ -8,16 +8,24 @@ import {Observable, Subject} from 'rxjs';
 })
 export class BookService {
 
-  constructor(private httpClient: HttpClient) {
-     this.getBooks();
-  }
-
   private books: Book[] = [];
   public bookSubject = new Subject<Book[]>();
+
+  public loaderSubject = new Subject<boolean>();
+  public loader:boolean = true;
+
   private apiAddress =  'http://localhost:8000';
+
+  constructor(private httpClient: HttpClient) {
+    this.getBooks();
+  }
 
   public emitBooks() {
     this.bookSubject.next(this.books);
+  }
+
+  public emitLoader() {
+    this.loaderSubject.next(this.loader);
   }
 
   public createBook(book: Book): void {
@@ -37,7 +45,11 @@ export class BookService {
         this.books = books;
         this.emitBooks();
       },
-      error => console.error(error)
+      error => console.log(error),
+      () => {
+        this.loader = false;
+        this.emitLoader();
+      }
     );
   }
 

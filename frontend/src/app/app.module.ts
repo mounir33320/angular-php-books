@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
+import { LoaderComponent } from './loader/loader.component';
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/books", pathMatch: "full" },
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
     BookListComponent,
     BookFormComponent,
     SingleBookComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

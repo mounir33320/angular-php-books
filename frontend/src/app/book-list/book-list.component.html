@@ -1,7 +1,8 @@
 <div class="row">
   <div class="col-12">
     <h1 class="text-center">Liste des livres</h1>
-    <ul class="list-group">
+    <app-loader *ngIf="loader"></app-loader>
+    <ul *ngIf="books.length > 0" class="list-group">
       <li class="list-group-item bg-dark my-3 d-flex" *ngFor="let book of books; let i = index">
         <button class="btn btn-dark w-100" (click)="onViewBook(book.id)" >
           <h3> {{ book.title }} </h3>
@@ -10,7 +11,6 @@
         </button>
         <button class="btn btn-danger  float-right" (click)="onDelete(book, i)" >X</button>
       </li>
-
     </ul>
   </div>
 </div>
